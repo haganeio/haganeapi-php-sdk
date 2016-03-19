@@ -1,0 +1,15 @@
+{
+	"name": "hagane/php-sdk",
+	"description": "SDK for haganeapi",
+	"authors": [
+	{
+		"name": "Erick Castillo",
+		"email": "ecastillo550@gmail.com"
+	}
+	],
+	"autoload": {
+	   "psr-0" : {
+	     	"php-sdk" : "src"
+	   }
+	}
+}
