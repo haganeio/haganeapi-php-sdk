@@ -8,8 +8,8 @@
 	}
 	],
 	"autoload": {
-	   "psr-0" : {
-	     	"php-sdk" : "src"
+	   "psr-4" : {
+	     	"Hagane\\" : "src/Hagane/"
 	   }
 	}
 }
