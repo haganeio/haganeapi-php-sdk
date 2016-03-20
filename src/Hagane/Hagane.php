@@ -5,7 +5,7 @@ class Hagane {
 	private $apiurl;
 	private $curl;
 
-	public __construct($url = null){
+	public function __construct($url = null){
 		$this->apiurl = $url;
 		$this->curl = curl_exec($url);
 	}
