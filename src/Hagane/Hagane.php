@@ -26,14 +26,13 @@ class Hagane {
 			CURLOPT_USERAGENT => 'Hagane PHP SDK'
 		));
 		$response = curl_exec($curl);
-		$json = json_decode($response);
+		$json = json_decode($response, true);
 		
-		$jsonarr = (array)$json;
-		if(!empty($jsonarr['error'])){
-			return json_encode($json->error);
-		} elseif(!empty($jsonarr['success'])){
-			unset($json->success);
-			return $json->message;
+		if(!empty($json['error'])){
+			return json_encode($json['error']);
+		} elseif(!empty($json['success'])){
+			unset($json['success']);
+			return $json['message'];
 		}
 	}
 	
@@ -53,14 +52,13 @@ class Hagane {
 			CURLOPT_POSTFIELDS => json_encode($params)
 		));
 		$response = curl_exec($curl);
-		$json = json_decode($response);
-		$jsonarr = (array)$json;
+		$json = json_decode($response, true);
 		
-		if(!empty($jsonarr['error'])){
-			return json_encode($json->error);
-		} elseif(!empty($jsonarr['success'])){
-			unset($json->success);
-			return $json->message;
+		if(!empty($json['error'])){
+			return json_encode($json['error']);
+		} elseif(!empty($json['success'])){
+			unset($json['success']);
+			return $json['message'];
 		}
 	}
 }
