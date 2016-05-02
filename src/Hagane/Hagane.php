@@ -7,7 +7,7 @@ class Hagane {
 	public function __construct($url = null){
 		$this->apiurl = $url;
 	}
-	
+
 	public function get($url, $accessToken = null, $getparams = null){
 		if(substr($url, 0, 1) == '/'){
 			$url = $this->apiurl . $url;
@@ -45,7 +45,7 @@ class Hagane {
 		if(!empty($json['error'])){
 			return json_encode($json['error']);
 		} elseif(!empty($json['success'])){
-			unset($json['success']);
+			//unset($json['success']);
 			return $json['message'];
 		}
 	}
@@ -79,7 +79,7 @@ class Hagane {
 		if(!empty($json['error'])){
 			return json_encode($json['error']);
 		} elseif(!empty($json['success'])){
-			unset($json['success']);
+			//unset($json['success']);
 			return $json['message'];
 		}
 	}
