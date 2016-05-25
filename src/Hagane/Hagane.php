@@ -3,9 +3,11 @@ namespace Hagane;
 
 class Hagane {
 	protected $apiurl;
+	protected $debug = false;
 	
-	public function __construct($url = null){
+	public function __construct($url = null, $debug = false){
 		$this->apiurl = $url;
+		$this->debug = $debug;
 	}
 
 	public function get($url, $accessToken = null, $getparams = null){
@@ -40,6 +42,12 @@ class Hagane {
 			CURLOPT_USERAGENT => 'Hagane PHP SDK'
 		));
 		$response = curl_exec($curl);
+		if ($this->debug) {
+			echo '<pre>';
+			echo $url.'<br>';
+			var_dump($response);
+			echo '</pre>';
+		}
 		$json = json_decode($response, true);
 		
 		if(!empty($json['error'])){
@@ -70,10 +78,12 @@ class Hagane {
 			CURLOPT_POSTFIELDS => json_encode($params)
 		));
 		$response = curl_exec($curl);
-		// echo '<pre>';
-		// echo $url.'<br>';
-		// var_dump($response);
-		// echo '</pre>';
+		if ($this->debug) {
+			echo '<pre>';
+			echo $url.'<br>';
+			var_dump($response);
+			echo '</pre>';
+		}
 		$json = json_decode($response, true);
 		
 		if(!empty($json['error'])){
@@ -142,10 +152,10 @@ class Post extends HaganeAPI {
 			CURLOPT_POSTFIELDS => json_encode($params)
 		));
 		$response = curl_exec($curl);
-		// echo '<pre>';
-		// echo $url.'<br>';
-		// var_dump($response);
-		// echo '</pre>';
+		echo '<pre>';
+		echo $url.'<br>';
+		var_dump($response);
+		echo '</pre>';
 		$json = json_decode($response, true);
 		
 		if(!empty($json['error'])){
