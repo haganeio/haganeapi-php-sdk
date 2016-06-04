@@ -128,7 +128,7 @@ class Post extends HaganeAPI {
 	private $message;
 	private $apiurl;
 
-	public function __construct($url, $params, $accessToken = null) {
+	public function __construct($url, $params, $accessToken = null, $debug = null) {
 		//$this->apiurl = $apiurl;
 		$parent = \Hagane\HaganeAPI::getInstance();
 		$this->apiurl = $parent->getApiUrl();
@@ -152,10 +152,12 @@ class Post extends HaganeAPI {
 			CURLOPT_POSTFIELDS => json_encode($params)
 		));
 		$response = curl_exec($curl);
-		echo '<pre>';
-		echo $url.'<br>';
-		var_dump($response);
-		echo '</pre>';
+		if ($debug) {
+			echo '<pre>';
+			echo $url.'<br>';
+			var_dump($response);
+			echo '</pre>';
+		}
 		$json = json_decode($response, true);
 		
 		if(!empty($json['error'])){
