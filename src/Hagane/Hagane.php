@@ -1,10 +1,10 @@
-<?php 
+<?php
 namespace Hagane;
 
 class Hagane {
 	protected $apiurl;
 	protected $debug = false;
-	
+
 	public function __construct($url = null, $debug = false){
 		$this->apiurl = $url;
 		$this->debug = $debug;
@@ -38,7 +38,7 @@ class Hagane {
 		$curl = curl_init();
 		curl_setopt_array($curl, array(
 			CURLOPT_RETURNTRANSFER => 1,
-			CURLOPT_URL => $url,		
+			CURLOPT_URL => $url,
 			CURLOPT_USERAGENT => 'Hagane PHP SDK'
 		));
 		$response = curl_exec($curl);
@@ -49,15 +49,16 @@ class Hagane {
 			echo '</pre>';
 		}
 		$json = json_decode($response, true);
-		
-		if(!empty($json['error'])){
-			return json_encode($json['error']);
-		} elseif(!empty($json['success'])){
-			//unset($json['success']);
+
+		if (empty($json)) {
+			return array('error' => $response);
+		} else if(!empty($json['success'])){
 			return $json['message'];
+		} else {
+			return array('error' => json_encode($json['error']));
 		}
 	}
-	
+
 	public function post($url, $params, $accessToken = null){
 		if(substr($url, 0, 1) == '/'){
 			$url = $this->apiurl . $url;
@@ -68,11 +69,11 @@ class Hagane {
 		if (!empty($accessToken)) {
 			$params['accessToken'] = $accessToken;
 		}
-		
+
 		$curl = curl_init();
 		curl_setopt_array($curl, array(
 			CURLOPT_RETURNTRANSFER => 1,
-			CURLOPT_URL => $url,		
+			CURLOPT_URL => $url,
 			CURLOPT_USERAGENT => 'Hagane PHP SDK',
 			CURLOPT_POST => 1,
 			CURLOPT_POSTFIELDS => json_encode($params)
@@ -85,12 +86,13 @@ class Hagane {
 			echo '</pre>';
 		}
 		$json = json_decode($response, true);
-		
-		if(!empty($json['error'])){
-			return json_encode($json['error']);
-		} elseif(!empty($json['success'])){
-			//unset($json['success']);
+
+		if (empty($json)) {
+			return array('error' => $response);
+		} else if(!empty($json['success'])){
 			return $json['message'];
+		} else {
+			return array('error' => json_encode($json['error']));
 		}
 	}
 
@@ -122,7 +124,7 @@ class Hagane {
 		$curl = curl_init();
 		curl_setopt_array($curl, array(
 			CURLOPT_RETURNTRANSFER => 1,
-			CURLOPT_URL => $url,		
+			CURLOPT_URL => $url,
 			CURLOPT_CUSTOMREQUEST => 'DELETE',
 			CURLOPT_USERAGENT => 'Hagane PHP SDK'
 		));
@@ -134,12 +136,13 @@ class Hagane {
 			echo '</pre>';
 		}
 		$json = json_decode($response, true);
-		
-		if(!empty($json['error'])){
-			return json_encode($json['error']);
-		} elseif(!empty($json['success'])){
-			//unset($json['success']);
+
+		if (empty($json)) {
+			return array('error' => $response);
+		} else if(!empty($json['success'])){
 			return $json['message'];
+		} else {
+			return array('error' => json_encode($json['error']));
 		}
 	}
 }
@@ -191,11 +194,11 @@ class Post extends HaganeAPI {
 		if (!empty($accessToken)) {
 			$params['accessToken'] = $accessToken;
 		}
-		
+
 		$curl = curl_init();
 		curl_setopt_array($curl, array(
 			CURLOPT_RETURNTRANSFER => 1,
-			CURLOPT_URL => $url,		
+			CURLOPT_URL => $url,
 			CURLOPT_USERAGENT => 'Hagane PHP SDK',
 			CURLOPT_POST => 1,
 			CURLOPT_POSTFIELDS => json_encode($params)
@@ -208,7 +211,7 @@ class Post extends HaganeAPI {
 			echo '</pre>';
 		}
 		$json = json_decode($response, true);
-		
+
 		if(!empty($json['error'])){
 			//return json_encode($json['error']);
 			$this->message = json_encode($json['error']);
